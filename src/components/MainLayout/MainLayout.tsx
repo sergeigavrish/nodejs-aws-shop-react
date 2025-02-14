@@ -4,6 +4,7 @@ import Link from "@mui/material/Link";
 import Container from "@mui/material/Container";
 import Header from "~/components/MainLayout/components/Header";
 import Box from "@mui/material/Box";
+import dancingKitty from "../../assets/cat.gif";
 
 function Copyright() {
   return (
@@ -31,6 +32,9 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         component={"footer"}
         sx={{ bgcolor: (theme) => theme.palette.background.paper, padding: 6 }}
       >
+        <Box sx={{ display: "flex", justifyContent: "center" }}>
+          <img src={dancingKitty} alt="dancing kitty" />
+        </Box>
         <Typography
           variant="subtitle1"
           align="center"
