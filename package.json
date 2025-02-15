@@ -10,7 +10,10 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest run --coverage",
     "lint": "eslint --ignore-path .gitignore --fix src",
-    "prettier": "prettier src --write"
+    "prettier": "prettier src --write",
+    "predeploy": "npm ci",
+    "deploy": "npm run build",
+    "postdeploy": "cd ./nodejs-aws-shop-infrastructure && npm run deploy"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
