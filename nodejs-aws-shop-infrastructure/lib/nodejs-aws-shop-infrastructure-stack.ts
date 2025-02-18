@@ -13,8 +13,6 @@ export class NodejsAwsShopInfrastructureStack extends Stack {
     const bucket = new Bucket(this, "NodejsAwsShopInfrastructureBucket", {
       bucketName: "nodejs-aws-shop-infrastructure-s3",
       blockPublicAccess: BlockPublicAccess.BLOCK_ALL,
-      websiteIndexDocument: "index.html",
-      websiteErrorDocument: "index.html",
       removalPolicy: RemovalPolicy.DESTROY,
       autoDeleteObjects: true,
     });
