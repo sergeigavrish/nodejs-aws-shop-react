@@ -1,4 +1,10 @@
-import { Stack, StackProps, RemovalPolicy } from "aws-cdk-lib";
+import {
+  Stack,
+  StackProps,
+  RemovalPolicy,
+  CfnOutput,
+  Duration,
+} from "aws-cdk-lib";
 import { Distribution, ViewerProtocolPolicy } from "aws-cdk-lib/aws-cloudfront";
 import { S3BucketOrigin } from "aws-cdk-lib/aws-cloudfront-origins";
 import { Bucket, BlockPublicAccess } from "aws-cdk-lib/aws-s3";
@@ -26,6 +32,20 @@ export class NodejsAwsShopInfrastructureStack extends Stack {
           viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         },
         defaultRootObject: "index.html",
+        errorResponses: [
+          {
+            httpStatus: 403,
+            responseHttpStatus: 200,
+            responsePagePath: "/index.html",
+            ttl: Duration.seconds(0),
+          },
+          {
+            httpStatus: 404,
+            responseHttpStatus: 200,
+            responsePagePath: "/index.html",
+            ttl: Duration.seconds(0),
+          },
+        ],
       }
     );
 
@@ -35,6 +55,12 @@ export class NodejsAwsShopInfrastructureStack extends Stack {
       prune: true,
       distribution,
       distributionPaths: ["/*"],
+    });
+
+    new CfnOutput(this, "NodejsAwsShopInfrastructureDistributionDomainName", {
+      value: distribution.distributionDomainName,
+      exportName: "ExportedNodejsAwsShopInfrastructureDistributionDomainName",
+      description: "Nodejs aws shop distribution domain name",
     });
   }
 }
