@@ -34,22 +34,9 @@ export default function CSVFileImport({ url, title }: CSVFileImportProps) {
         params: {
           name: encodeURIComponent(file.name),
         },
-        headers: {
-          Authorization: `Basic ${localStorage.getItem("authorization_token")}`,
-        },
       });
       console.log("File to upload: ", file.name);
       console.log("Uploading to: ", response.data);
-
-      if (response.status === 401) {
-        alert("Unauthorized: Authorization header is not provided");
-        return;
-      }
-
-      if (response.status === 403) {
-        alert("Forbidden: Invalid token");
-        return;
-      }
 
       const result = await fetch(response.data, {
         method: "PUT",
